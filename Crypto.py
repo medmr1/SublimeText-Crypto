@@ -117,7 +117,7 @@ def crypto(view, enc_flag, password, data):
   _pass = "env:%s" % envVar
 
   try:
-    openssl = Popen([openssl_command, "enc", enc_flag, cipher, "-base64", "-pass", _pass], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    openssl = Popen([openssl_command, "enc", enc_flag, "-pbkdf2", cipher, "-base64", "-pass", _pass], stdin=PIPE, stdout=PIPE, stderr=PIPE)
     result, error = openssl.communicate( data.encode("utf-8") )
     del os.environ[envVar] # get rid of the temporary ENV var
   except IOError as e:
