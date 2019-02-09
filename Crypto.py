@@ -109,6 +109,7 @@ def panel(window, message):
 def crypto(view, enc_flag, password, data):
   s = sublime.load_settings("Crypto.sublime-settings")
   cipher = s.get('cipher')
+  usePbkdf2 = s.get("use_pbkdf2", True)
   openssl_command = os.path.normpath( s.get('openssl_command') )
 
   # pass the password as an ENV variable, for better security
@@ -117,7 +118,8 @@ def crypto(view, enc_flag, password, data):
   _pass = "env:%s" % envVar
 
   try:
-    openssl = Popen([openssl_command, "enc", enc_flag, cipher, "-base64", "-pass", _pass], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    arguments = [openssl_command, "enc", enc_flag] + (["-pbkdf2"] if usePbkdf2 else []) + [cipher, "-base64", "-pass", _pass]
+    openssl = Popen(arguments, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     result, error = openssl.communicate( data.encode("utf-8") )
     del os.environ[envVar] # get rid of the temporary ENV var
   except IOError as e:

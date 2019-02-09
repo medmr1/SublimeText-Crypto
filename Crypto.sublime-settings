@@ -2,7 +2,12 @@
   // The path to your openssl executable
   // e.g. "/usr/bin/openssl" or "C:\\bin\\openssl.exe"
   "openssl_command": "openssl",
-  // The Cipher Type to use, e.g. "-des3" or "-aes256"
+  // The Cipher Type to use, e.g. "-des3", "-aes256", or "-aes-256-ofb"
+  // "openssl enc -ciphers" will show the list of available ciphers
   "cipher": "-aes128",
-  "obfuscate_password": false
+  "obfuscate_password": false,
+  // MD5 key derivation is considered broken and is now deprecated by openssl.
+  // Set this flag to false if you need to access files that were encrypted
+  // with earlier versions of Crypto using MD5 key derivation
+  "use_pbkdf2": true
 }
