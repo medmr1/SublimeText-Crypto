@@ -59,7 +59,7 @@ By default password input will *not* be obfuscated. If you want your password in
 If you choose to enable `obfuscate_password` please be aware that there is a bug with the implementation that doesn't allow you to copy/paste your password.
 
 The commands work on a selection, multiple selections or if nothing is selected the whole document. Once you trigger the command you will be prompted to enter a password.
-​
+
 Earlier versions of the Crypto package used MD5 key derivation, the historical default for openssl, which is now considered broken and deprecated. To enable decryption of files that were encrypted using the old MD5 key derivation method, set the `use_pbkdf2` option to `false`.
 
 
